@@ -13,10 +13,13 @@
     border: 2px solid #009AD8;
     
 }
+
 .nav-border li a:hover{
     color:#009AD8 !important ;
 }
-
+.navbar-toggler-icon{
+    background-color: white !important;
+}
 .temp{
     background-image: url(../images/banner.png);
     background-color: #1E202B;
