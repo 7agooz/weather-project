@@ -1,3 +1,4 @@
+"use strict";
 //first day//
 var locationElement = document.getElementById("location");
 var currentDegreeElement = document.getElementById("degree");
@@ -45,7 +46,9 @@ async function getData(location) {
     displayData(dataInfo);
     displayData2(dataInfo);
     displayData3(dataInfo)
-  } catch (error) {}
+  } catch (error) {
+
+  }
 }
 /////////////////
 //1st day function/
