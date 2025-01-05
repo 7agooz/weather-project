@@ -44,6 +44,7 @@ async function getData(location) {
     );
     var dataInfo = await wData.json();
     displayData(dataInfo);
+    console.log(dataInfo);
     displayData2(dataInfo);
     displayData3(dataInfo)
   } catch (error) {
@@ -80,44 +81,28 @@ function displayData(dataInfo) {
   currentWindKhp.innerHTML = `${dataInfo.current.wind_kph} KM/H`;
   //wind direction//
   currentWindDir.innerHTML = dataInfo.current.wind_dir;
-}
-////////////////////////////////////////////////
-//2nd day function//
-///////////////////////////////////////////////
-function displayData2(dataInfo) {
-  var day2 = dataInfo.forecast.forecastday[1];
-  var date2 = new Date(day2.date);
-  //day name//
-  var dayName2 = date2.toLocaleString(`en-us`, { weekday: "long" });
-  currentDay2.innerHTML = dayName2;
-  //condition image//
-  var conidImg2 = day2.day.condition.icon;
-  var conditionImg2 = `https:${conidImg2}`;
-  condImg2.setAttribute("src", conditionImg2);
-  //max temp//
-  degree2Max.innerHTML = `${day2.day.maxtemp_c}°C`;
-  //min temp//
-  degree2Min.innerHTML = `${day2.day.mintemp_c}°`;
-  //condition//
-  condition2.innerHTML = day2.day.condition.text;
-}
-////////////////////////////////////////////////
-//3rd day function//
-///////////////////////////////////////////////
-function displayData3(dataInfo){
-    var day3 = dataInfo.forecast.forecastday[2];
-    var date3 = new Date(day3.date);
-    //day name//
-    var dayName3 = date3.toLocaleString(`en-us`, { weekday: "long" });
-    currentDay3.innerHTML = dayName3;
-     //condition image//
-  var conidImg3 = day3.day.condition.icon;
-  var conditionImg3 = `https:${conidImg3}`;
-  condImg3.setAttribute("src", conditionImg3);
-  //max temp//
-  degree3Max.innerHTML = `${day3.day.maxtemp_c}°C`;
-  //min temp//
-  degree3Min.innerHTML = `${day3.day.mintemp_c}°`;
-  //condition//
-  condition3.innerHTML = day3.day.condition.text;
-}
+
+  
+  let container = "";
+  for (let i = 1; i <= 2; i++) 
+    {
+    let allDays =  dataInfo.forecast.forecastday[i];
+    let allDate = new Date(dataInfo.forecast.forecastday[i].date);
+    let allDateName = allDate.toLocaleString(`en-us`, { weekday: "long" });
+    container += `
+     <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="head text-center">
+              <div class="day" id="currentDay2">${allDateName}</div>
+            </div>
+            <div class="data h-100">
+              <div class="current-cond-img text-center">
+                <img src="https:${dataInfo.forecast.forecastday[i].day.condition.icon}" id="condImg2" class="w-25" alt="" />
+              </div>
+              <h3 class="text-center fw-bolder" id="degree2Max">${dataInfo.forecast.forecastday[i].day.maxtemp_c}°C</h3>
+              <h4 class="text-center" id="degree2Min">${dataInfo.forecast.forecastday[i].day.mintemp_c}°C</h4>
+              <div class="text-center cond" id="condition2"></div>
+            </div>
+          </div>`
+        }
+         days.innerHTML += container;
+  }
